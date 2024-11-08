@@ -13,6 +13,11 @@ function Register() {
         setSelectedValue(event.target.value);
       };
 
+   const handleLogin = (e:any)=>{
+    e.preventDefault()
+    console.log(username,email,password,selectedValue )
+   }
+
   return (
    <InputContainer>
     <Label htmlFor="username" className="required">Username</Label>
@@ -30,7 +35,7 @@ function Register() {
     <h2>Select your role:</h2>
     <RadioGroup selectedValue={selectedValue} onChange={handleRadioChange}/>
     <p>Selected: {selectedValue}</p>
-    <Button formAction='sumbmit'>Login</Button>
+    <Button formAction='sumbmit' onClick={handleLogin}>Login</Button>
    </InputContainer>
 )
 }
