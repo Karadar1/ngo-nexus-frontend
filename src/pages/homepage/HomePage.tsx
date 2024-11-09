@@ -1,6 +1,7 @@
 import { Button, Container, Subtitle, Title } from "./HomePage.styled";
 
 export default function HomePage() {
+    
     return (
       <Container>
         <Title>Welcome to My Homepage</Title>
