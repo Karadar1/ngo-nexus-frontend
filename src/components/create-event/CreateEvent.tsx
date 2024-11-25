@@ -1,18 +1,55 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 import { CreateEventContainer, Form, Input, Label, SubmitButton, TextArea, Title } from './CreateEvent.styled';
+import axios from 'axios';
 
+type CreateComponentProps = {
+  setShow: Dispatch<SetStateAction<boolean>>;
+};
 
-
-const CreateEvent = () => {
+const CreateEvent : React.FC<CreateComponentProps> = ({setShow}) => {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+  const fetchData = async () => {
+    const token = localStorage.getItem('authToken');
+    
+    try {
+      setLoading(true); // Start loading
+      
+      // Sending a POST request with axios
+      const response = await axios.post(
+        'http://localhost:8181/api/event',
+        {
+          name: title,           // Data payload for the POST request
+          location: location,
+          description: description,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Bearer token for authorization
+          },
+        }
+      );
+  
+      console.log(response.data); // Log the response data (or update state)
+    } catch (err) {
+    } finally {
+      setLoading(false);
+      setShow(false);
+    }
+  };
+  
+
+  const handleSubmit = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
+    fetchData()
     console.log({ title, location, description });
-    // Perform any further actions, such as submitting to the server
+    // Perform any further actions, such as submitting to the server\
   };
 
   return (
@@ -58,3 +95,7 @@ const CreateEvent = () => {
 };
 
 export default CreateEvent;
+function setError(arg0: any) {
+  throw new Error('Function not implemented.');
+}
+

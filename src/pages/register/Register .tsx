@@ -61,7 +61,7 @@ function Register() {
     <h2>Select your role:</h2>
     <RadioGroup selectedValue={selectedValue} onChange={handleRadioChange}/>
     <p>Selected: {selectedValue}</p>
-    <Button formAction='sumbmit' onClick={(event)=>{handleRegister(event)}}>Login</Button>
+    <Button formAction='sumbmit' onClick={(event)=>{handleRegister(event)}}>Register</Button>
    </InputContainer>
 )
 }

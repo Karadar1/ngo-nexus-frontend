@@ -1,49 +1,29 @@
-// src/context/UserContext.tsx
-
+// context/UserContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// Define the shape of the user object
-interface User {
+type User = {
   name: string;
   email: string;
-}
+  isNgo: boolean;
+} | null;
 
-// Define the shape of the context
-interface UserContextType {
-  user: User | null;
+type UserContextType = {
+  user: User;
   login: (userData: User) => void;
   logout: () => void;
-}
-
-// Create the UserContext with an initial value of undefined
-const UserContext = createContext<UserContextType | undefined>(undefined);
-
-// Custom hook for easy access to the UserContext
-export const useUser = (): UserContextType => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error('useUser must be used within a UserProvider');
-  }
-  return context;
 };
 
-// Props type for UserProvider
-interface UserProviderProps {
-  children: ReactNode;
-}
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
-// UserProvider component that wraps around the app and provides user state
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User>(null);
 
-  // Function to log in a user
   const login = (userData: User) => {
-    setUser(userData);
+    setUser(userData); // Set user data on login
   };
 
-  // Function to log out a user
   const logout = () => {
-    setUser(null);
+    setUser(null); // Clear user data on logout
   };
 
   return (
@@ -51,4 +31,13 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+// Custom hook to use the UserContext
+export const useUser = (): UserContextType => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error('useUser must be used within a UserProvider');
+  }
+  return context;
 };
