@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CustomRadio, RadioContainer, RadioInput, RadioLabel } from '../pages/login/Login.styled';
+import { CustomRadio, RadioContainer, RadioInput, RadioLabel } from '../../pages/login/Login.styled';
 
 // Define the type for props
 interface RadioGroupProps {

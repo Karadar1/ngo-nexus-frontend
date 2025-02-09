@@ -66,3 +66,31 @@ export const SubmitButton = styled.button`
     background-color: #0056b3;
   }
 `;
+export const TagInputContainer = styled.div`
+  margin-top: 1rem;
+`;
+
+export const TagList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+`;
+
+export const Tag = styled.span`
+  background-color: #f0f0f0;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+`;
+
+export const RemoveTagButton = styled.button`
+  margin-left: 0.5rem;
+  background: none;
+  border: none;
+  color: red;
+  cursor: pointer;
+  font-size: 1rem;
+`;
